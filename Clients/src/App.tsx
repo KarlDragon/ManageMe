@@ -1,35 +1,46 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { LoginForm } from './components/LoginRegisterForm/LoginForm.tsx'
+import { RegisterForm } from './components/LoginRegisterForm/RegisterForm.tsx'
+export { App }
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [AppState, setAppState] = useState('login');
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app">
+      <header>
+        <nav className="navbar">
+          <h2 className="navbar-logo">Welcome to ManageMe</h2>
+        </nav>
+      </header>
+      <main>
+        <div className="formContainer">
+          <div className="formCard">
+            {AppState === 'login' && <LoginForm />}
+            {AppState === 'register' && <RegisterForm />}
+
+            <div className="toggleLinks">
+              {AppState === 'login' ? (
+                <p>
+                  Don’t have an account?{' '}
+                  <button className="linkButton" onClick={() => setAppState('register')}>
+                    Register here
+                  </button>
+                </p>
+              ) : (
+                <p>
+                  Already have an account?{' '}
+                  <button className="linkButton" onClick={() => setAppState('login')}>
+                    Login here
+                  </button>
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </main>
+
+    </div>
   )
 }
-
-export default App

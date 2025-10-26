@@ -1,0 +1,93 @@
+/* Hide built-in eye icon in password input */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}
+
+.loginForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.loginForm form {
+    background: rgb(103, 88, 184);
+    padding: 2.5rem 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.formTitle {
+    text-align: center;
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.formGroup label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.4rem;
+}
+
+.formGroup input {
+    padding: 0.6rem 2.5rem 0.6rem 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+    background-color:#5563DE;
+}
+
+.formGroup input:focus {
+    border-color: #5563DE;
+}
+
+.formGroup button {
+    position: absolute;
+    right: 0.6rem;
+    top: 2.1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #777;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.formGroup button:hover {
+    color: #5563DE;
+}
+
+.submitButton {
+    margin-top: 1rem;
+    background-color: #5563DE;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+    background-color: #3848B3;
+}
