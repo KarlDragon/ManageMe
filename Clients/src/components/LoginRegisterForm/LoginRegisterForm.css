@@ -59,6 +59,17 @@ input[type="password"]::-webkit-textfield-decoration-container {
     border-color: #5563DE;
 }
 
+.checkbox-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.checkbox-btn input {
+  accent-color: #4caf50; /* change checkbox color */
+}
+
+
 .formGroup button {
     position: absolute;
     right: 0.6rem;

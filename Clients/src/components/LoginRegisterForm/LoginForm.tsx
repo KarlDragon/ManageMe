@@ -9,11 +9,15 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
-  function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    handleLogin({ email, password });
+  const [rememberMe, setRememberMe] = useState(false);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleLogin({ email, password, rememberMe });
   }
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRememberMe(e.target.checked);
+  };
 
   return (
     <div className="loginForm">
@@ -51,6 +55,11 @@ function LoginForm() {
             {showPassword ? <EyeOff size={30} /> : <Eye size={30} />}
           </button>
         </div>
+
+        <label className="checkbox-btn">
+          <input type="checkbox" name="rememberme" id="rememberme" checked={rememberMe} onChange={handleCheckboxChange} />
+            <span>Remember me</span>
+        </label>
 
         {/* Submit */}
         <button type="submit" className="submitButton">
