@@ -1,7 +1,7 @@
 using DotNetEnv;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Server.Data; // where AppDbContext lives
+using Server.Data;
 
 Env.Load();
 
@@ -39,6 +39,7 @@ builder.Services.AddCors(options =>
               .WithOrigins("http://localhost:5173");
     });
 });
+
 
 var app = builder.Build();
 
