@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './LoginRegisterForm.css';
-import { handleLogin } from '../../handler/handleLoginRegister.tsx';
+import { handleLogin } from '../../handler/HandleLoginRegister.tsx';
 import { Eye, EyeOff } from 'lucide-react';
-
+import { useNavigate } from "react-router-dom";
 export { LoginForm };
 
 function LoginForm() {
@@ -10,9 +10,10 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleLogin({ email, password, rememberMe });
+    handleLogin({ email, password, rememberMe }, navigate);
   }
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {

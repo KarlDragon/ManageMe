@@ -1,0 +1,42 @@
+/* Form container wrapper */
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex: 1; /* take full height of parent main */
+}
+
+/* Form card that wraps login/register */
+.formCard {
+  background-color: rgb(103, 88, 184);
+  padding: 2rem 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 340px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Toggle links inside forms */
+.toggleLinks {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: #5563DE;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0;
+  transition: color 0.2s ease-in-out;
+}
+
+.linkButton:hover {
+  color: #3848B3;
+  text-decoration: underline;
+}

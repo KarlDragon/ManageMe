@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Eye, EyeOff } from "lucide-react";
-import { handleRegister } from '../../handler/handleLoginRegister.tsx';
+import { handleRegister } from '../../handler/HandleLoginRegister.tsx';
+import { useNavigate } from "react-router-dom";
 // import './LoginRegisterForm.css';
 export { RegisterForm };
 
@@ -10,14 +11,14 @@ function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const navigate = useNavigate();
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    handleRegister({ email, password, confirmPassword });
+    handleRegister({ email, password, confirmPassword }, navigate);
   }
 
   return (

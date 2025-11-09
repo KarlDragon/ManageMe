@@ -5,74 +5,19 @@ html, body, #root {
 }
 
 .app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(135deg, #74ABE2, #02072d);
-    height: 100%;
-    width: 100%;
-    color: #333;
-  }
-
-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #74ABE2, #02072d);
+  height: 100%;
   width: 100%;
-  height: 10%;
-  background-color: #5563DE;
-}
-/* Navbar */
-.navbar {
-  /* padding: 1.5rem; */
-  color: white;
-  text-align: center;
+  color: #333;
 }
 
-/* Main area */
+/* Main area inside FormLayout wrapper */
 main {
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1;
-}
-
-/* Form container */
-.formContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-/* Form card that wraps login/register */
-.formCard {
-  background: white;
-  padding: 2rem 2.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  background-color: rgb(103, 88, 184) ;
-  width: 340px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Toggle links */
-.toggleLinks {
-  font-size: 0.95rem;
-  color: #444;
-}
-
-.linkButton {
-  background: none;
-  border: none;
-  color: #5563DE;
-  cursor: pointer;
-  font-weight: 600;
-  padding: 0;
-  transition: color 0.2s ease-in-out;
-}
-
-.linkButton:hover {
-  color: #3848B3;
-  text-decoration: underline;
 }

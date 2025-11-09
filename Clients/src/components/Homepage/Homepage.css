@@ -1,0 +1,14 @@
+.homepageContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #74ABE2, #02072d);
+  color: #333;
+}
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* or center / whatever layout you want */
+  padding: 1rem;
+}
