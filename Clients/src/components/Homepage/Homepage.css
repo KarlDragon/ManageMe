@@ -1,14 +1,62 @@
+
 .homepageContainer {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #74ABE2, #02072d);
-  color: #333;
+  color: #fff;
+  box-sizing: border-box;
 }
-header {
+
+.homepageHeader {
   width: 100%;
   display: flex;
-  justify-content: space-between; /* or center / whatever layout you want */
-  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #1D4ED8, #1E3A8A);
+  border-radius: 8px 8px 0 0;
+}
+
+.homepageHeader h1 {
+  margin: 0;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.homepageHeader button {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  margin-right: 2rem;
+  font: 1em sans-serif;
+  background-color: #EF4444;
+  color: #E2E8F0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.homepageHeader button:hover {
+  background-color: #e04343;
+}
+
+.homepageMain {
+  flex: 1; 
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background-color: #0F172A; 
+}
+
+.hierarchy {
+  width: 25%;
+  background: #222;
+  border-radius: 8px;
+}
+
+.contentArea {
+  flex: 1;
+  background: #1e1e1e;
+  border-radius: 8px;
 }

@@ -9,10 +9,18 @@ function Homepage() {
   const { setUserEmail } = useAuthContext();
   return (
     <div className="homepageContainer">
-      <header>
+      <header className="homepageHeader">
         <h1>ManageMe</h1>
         <button onClick={() => { Logout({ setUserEmail }, navigate) }}>Log out</button>
       </header>
+      <main className="homepageMain">
+        <div className="hierarchy">
+
+        </div>
+        <div className="contentArea">
+
+        </div>
+      </main> 
     </div>
   )
 }
