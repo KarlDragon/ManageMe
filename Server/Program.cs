@@ -2,6 +2,7 @@ using DotNetEnv;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Server.Data;
+using UserContent.Models;
 
 Env.Load();
 
@@ -15,6 +16,11 @@ var connectionString = $"server={Env.GetString("DB_HOST")};" +
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 30))));
+
+builder.Services.AddDbContext<UserContentContext>(options =>
+    options.UseMySql(
+        connectionString, new MySqlServerVersion(new Version(8, 0, 30))
+    ));
 
 // ✅ Let Identity handle authentication cookies automatically
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
