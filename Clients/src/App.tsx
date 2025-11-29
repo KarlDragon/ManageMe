@@ -4,7 +4,7 @@ import { LoginForm } from './components/LoginRegisterForm/LoginForm.tsx';
 import { RegisterForm } from './components/LoginRegisterForm/RegisterForm.tsx';
 import { Homepage } from './components/Homepage/Homepage.tsx';
 import { useAuthContext } from './hooks/AuthContext.tsx';
-import { ToggleLinks } from './components/Togglelinks/ToggleLinks.tsx';
+import { ToggleLinks } from './components/ToggleLinks.tsx';
 import { FormLayout } from './components/Layouts/FormLayout/FormLayout.tsx';
 import { HomepageLayout } from './components/Layouts/HomepageLayout/HomepageLayout.tsx';
 
