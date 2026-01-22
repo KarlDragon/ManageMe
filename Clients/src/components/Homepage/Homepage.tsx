@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { CategorySelector } from "../CategorySelector/CategorySelector";
 import { HandleUserContent } from "../../handler/HandleUserContent";
+import { UserExpense } from "../UserExpense/UserExpense";
+import { useSpendingData } from "../../hooks/useSpendingData";
 import './Homepage.css'
 export { Homepage }
 
@@ -11,14 +13,25 @@ function Homepage() {
   const navigate = useNavigate();
   const [hierarchyState, setHierarchyState] = useState<"daily" | "monthly" | "yearly">("daily");
   const [currentCategory, setCurrentCategory] = useState<
-    "Breakfast" | "Lunch" | "Dinner" | "Transport" | "Entertainment" | "Shopping" >("Breakfast");
+    "Breakfast" | "Lunch" | "Dinner" | "Transport" | "Entertainment" | "Shopping">("Breakfast");
   const [moneyAmount, setMoneyAmount] = useState<number>(0);
   const [note, setNote] = useState<string>("");
   const { setUserEmail } = useAuthContext();
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const { data, loading, error, refetch } = useSpendingData(hierarchyState);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    HandleUserContent(currentCategory, moneyAmount, note);
+    try {
+      await HandleUserContent(currentCategory, moneyAmount, note);
+      setMoneyAmount(0);
+      setNote("");
+      refetch();
+    } catch (err) {
+      console.error("Failed to submit expense:", err);
+    }
   }
+
   return (
     <div className="homepageContainer">
       <header className="homepageHeader">
@@ -38,29 +51,34 @@ function Homepage() {
           </div>
           <div className="contentArea">
             {hierarchyState === "daily" ? (
-              <form className="dailyCard" action="#" method="POST" onSubmit={handleSubmit}>
-                <h2>Thêm mục chi tiêu mới</h2>
-                <label>
-                  Chi tiêu cho:
-                </label>
-                <CategorySelector
+              <div className="usercontent">
+                <form className="dailyCard" action="#" method="POST" onSubmit={handleSubmit}>
+                  <h2>Thêm mục chi tiêu mới</h2>
+                  <label>
+                    Chi tiêu cho:
+                  </label>
+                  <CategorySelector
                     currentCategory={currentCategory}
                     setCurrentCategory={setCurrentCategory}
                   />
-                <label>
-                  Số tiền:
-                  <input type="number" name="amount" onChange={(e) => setMoneyAmount(Number(e.target.value))} required />
-                </label>
-                <label>
-                  Ghi chú:
-                  <input type="text" name="note" onChange={(e) => setNote(e.target.value)} />
-                </label>
-                <button type="submit" >Thêm Chi Tiêu</button>
-              </form>
-            ) : hierarchyState === "monthly" ? (
-              <div>Giao diện chi tiêu hằng tháng</div>
+                  <label>
+                    Số tiền:
+                    <input type="number" name="amount" value={moneyAmount} onChange={(e) => setMoneyAmount(Number(e.target.value))} required />
+                  </label>
+                  <label>
+                    Ghi chú:
+                    <input type="text" name="note" value={note} onChange={(e) => setNote(e.target.value)} />
+                  </label>
+                  <button type="submit" >Thêm Chi Tiêu</button>
+                </form>
+                <div className="expense">
+                  <UserExpense hierarchyState={hierarchyState} data={data} loading={loading} error={error} />
+                </div>
+              </div>
             ) : (
-              <div>Giao diện chi tiêu hằng năm</div>
+              <div className="expense">
+                <UserExpense hierarchyState={hierarchyState} data={data} loading={loading} error={error} />
+              </div>
             )}
           </div>
         </div>
