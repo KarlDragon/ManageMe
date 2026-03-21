@@ -1,19 +1,19 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import './App.css';
-import { LoginForm } from './components/LoginRegisterForm/LoginForm.tsx';
-import { RegisterForm } from './components/LoginRegisterForm/RegisterForm.tsx';
-import { Homepage } from './components/Homepage/Homepage.tsx';
-import { useAuthContext } from './hooks/AuthContext.tsx';
-import { ToggleLinks } from './components/ToggleLinks.tsx';
-import { FormLayout } from './components/Layouts/FormLayout/FormLayout.tsx';
-import { HomepageLayout } from './components/Layouts/HomepageLayout/HomepageLayout.tsx';
+import "./App.css";
+import { LoginForm } from "./components/LoginRegisterForm/LoginForm.tsx";
+import { RegisterForm } from "./components/LoginRegisterForm/RegisterForm.tsx";
+import { Homepage } from "./components/Homepage/Homepage.tsx";
+import { useAuth } from "./hooks/AuthContext.tsx";
+import { ToggleLinks } from "./components/ToggleLinks.tsx";
+import { FormLayout } from "./components/Layouts/FormLayout/FormLayout.tsx";
+import { HomepageLayout } from "./components/Layouts/HomepageLayout/HomepageLayout.tsx";
 
 export default function App() {
-  const { userEmail, loading } = useAuthContext();
-  if (loading) return <div>Loading...</div>;
+  const { isAuthenticated, isLoading } = useAuth();
 
-  const isAuthenticated = userEmail !== undefined;
-  console.log("App isAuthenticated:", isAuthenticated);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Router>
@@ -26,28 +26,40 @@ export default function App() {
         <Route
           path="/homepage"
           element={
-            <HomepageLayout>
-              <Homepage />
-            </HomepageLayout>
+            isAuthenticated ? (
+              <HomepageLayout>
+                <Homepage />
+              </HomepageLayout>
+            ) : (
+              <Navigate to="/login" replace />
+            )
           }
         />
 
         <Route
           path="/login"
           element={
-            <FormLayout>
-              <LoginForm />
-              <ToggleLinks />
-            </FormLayout>
+            isAuthenticated ? (
+              <Navigate to="/homepage" replace />
+            ) : (
+              <FormLayout>
+                <LoginForm />
+                <ToggleLinks />
+              </FormLayout>
+            )
           }
         />
         <Route
           path="/register"
           element={
-            <FormLayout>
-              <RegisterForm />
-              <ToggleLinks />
-            </FormLayout>
+            isAuthenticated ? (
+              <Navigate to="/homepage" replace />
+            ) : (
+              <FormLayout>
+                <RegisterForm />
+                <ToggleLinks />
+              </FormLayout>
+            )
           }
         />
       </Routes>

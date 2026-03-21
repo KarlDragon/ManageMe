@@ -1,4 +1,12 @@
-export interface categories {
-    currentCategory: "Breakfast" | "Lunch" | "Dinner" | "Transport" | "Entertainment"| "Shopping";
-    setCurrentCategory: (category : any) => void;
+export type Category =
+  | "Breakfast"
+  | "Lunch"
+  | "Dinner"
+  | "Transport"
+  | "Entertainment"
+  | "Shopping";
+
+export interface CategorySelectorProps {
+  currentCategory: Category;
+  setCurrentCategory: (category: Category) => void;
 }
