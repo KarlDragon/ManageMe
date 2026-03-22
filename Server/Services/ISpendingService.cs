@@ -13,6 +13,6 @@ public interface ISpendingService
     /// </summary>
     /// <param name="userId">The ID of the user.</param>
     /// <param name="hierarchy">The time period hierarchy (daily, monthly, yearly).</param>
-    /// <returns>A task containing the spending response with total and items.</returns>
-    Task<SpendingResponse> GetSpending(string userId, string hierarchy);
+    /// <returns>A task containing the spending data with total, byCategory, and byItems.</returns>
+    Task<object> GetSpending(string userId, string hierarchy);
 }

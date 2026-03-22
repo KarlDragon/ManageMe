@@ -34,7 +34,7 @@ public class SpendingService : ISpendingService
     /// <param name="hierarchy">The time hierarchy filter (daily, monthly, yearly).</param>
     /// <returns>A SpendingResponse containing total and item details.</returns>
     /// <exception cref="ArgumentException">Thrown when hierarchy is invalid.</exception>
-    public async Task<SpendingResponse> GetSpending(string userId, string hierarchy)
+    public async Task<object> GetSpending(string userId, string hierarchy)
     {
         _logger.LogInformation("Retrieving spending data for user {UserId} with hierarchy {Hierarchy}", userId, hierarchy);
 
@@ -44,13 +44,35 @@ public class SpendingService : ISpendingService
 
             var total = items.Sum(x => (decimal)x.MoneySpent);
 
+            // Group by category for byCategory
+            var byCategory = items
+                .GroupBy(x => x.Category)
+                .Select(g => new
+                {
+                    category = g.Key,
+                    amount = g.Sum(x => x.MoneySpent)
+                })
+                .ToList();
+
+            // Format items for byItems
+            var byItems = items
+                .Select(x => new
+                {
+                    category = x.Category,
+                    moneySpent = x.MoneySpent,
+                    note = x.Note,
+                    date = x.Date.ToString("yyyy-MM-dd HH:mm:ss")
+                })
+                .ToList();
+
             _logger.LogInformation("Retrieved {ItemCount} items with total spending {Total} for user {UserId}",
                 items.Count, total, userId);
 
-            return new SpendingResponse
+            return new
             {
-                Total = total,
-                Items = items
+                total = total,
+                byCategory = byCategory,
+                byItems = byItems
             };
         }
         catch (Exception ex)

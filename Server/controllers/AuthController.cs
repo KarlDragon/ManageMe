@@ -10,7 +10,7 @@ namespace Server.Controllers;
 /// Manages user registration, login, logout, and authentication status.
 /// </summary>
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]")] 
 public class AuthController : ControllerBase
 {
     private readonly UserManager<IdentityUser> _userManager;
@@ -79,7 +79,7 @@ public class AuthController : ControllerBase
         }
 
         _logger.LogInformation("User {Email} registered successfully.", dto.Email);
-        return Ok(new { message = "User registered successfully!", Email = user.Email });
+        return Ok(new { user = user.Email });
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public class AuthController : ControllerBase
         if (result.Succeeded)
         {
             _logger.LogInformation("Login successful for {Email}", dto.Email);
-            return Ok(new { message = "Login successful", Email = dto.Email });
+            return Ok(new { user = dto.Email });
         }
         else if (result.IsLockedOut)
         {

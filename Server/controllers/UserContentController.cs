@@ -101,7 +101,7 @@ public class UserContentController : ControllerBase
     /// <param name="hierarchy">The time hierarchy filter (daily, monthly, yearly).</param>
     /// <returns>An IActionResult containing the spending response or error.</returns>
     [Authorize]
-    [HttpGet("{hierarchy}")]
+    [HttpGet("spending/{hierarchy}")]
     public async Task<IActionResult> GetSpending(string hierarchy)
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
