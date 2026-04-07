@@ -19,8 +19,7 @@ public interface ISpendingService
     /// <summary>
     /// Modifies an existing user content item with new data.
     /// </summary>
-    /// <param name="userId">The ID of the user who owns the content.</param>
     /// <param name="dto">The data transfer object containing the updated content information.</param>
     /// <returns>A task representing the asynchronous operation, containing the result of the modification.</returns
-    Task<object> ModifyUserContent(string userId, UserContentDto dto);
+    Task<object> ModifyUserContent(UserContentDto dto);
 }
