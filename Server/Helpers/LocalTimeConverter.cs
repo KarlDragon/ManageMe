@@ -6,8 +6,12 @@ public class LocalTimeConverter
     /// <param name="utcDate">The UTC date and time to convert.</param>
     /// <param name="tzOffsetMinutes">The timezone offset in minutes from UTC.</param>
     /// <returns>The converted local DateTimeOffset.</returns>
-    public static DateTimeOffset ConvertToLocalTime(DateTimeOffset utcDate, int tzOffsetMinutes)
+    public static DateTimeOffset ConvertToLocalTime(string utcDate, int tzOffsetMinutes)
     {
-        return utcDate.ToOffset(TimeSpan.FromMinutes(tzOffsetMinutes));
+        if (!DateTimeOffset.TryParse(utcDate, out var utc))
+        {
+            throw new ArgumentException("Invalid date format. Expected ISO 8601 string.", nameof(utcDate));
+        }
+        return utc.ToOffset(TimeSpan.FromMinutes(tzOffsetMinutes));
     }
 }
