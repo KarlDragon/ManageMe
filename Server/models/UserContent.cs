@@ -68,10 +68,10 @@ public class UserContentDto
     public string Category { get; set; } = string.Empty;
 
     /// <summary>
-    /// The amount spent.
+    /// The Money spent.
     /// </summary>
-    [Required(ErrorMessage = "Amount is required.")]
-    [Range(0.01, int.MaxValue, ErrorMessage = "Amount must be greater than 0.")]
+    [Required(ErrorMessage = "MoneySpent is required.")]
+    [Range(0.01, int.MaxValue, ErrorMessage = "MoneySpent must be greater than 0.")]
     public int MoneySpent { get; set; }
 
     /// <summary>
