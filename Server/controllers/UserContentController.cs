@@ -6,7 +6,7 @@ using Server.Services;
 using System.Security.Claims;
 using UserContent.Models;
 using UserContentModel = UserContent.Models.UserContent;
-
+using Server.Repositories;
 namespace Server.Controllers;
 
 /// <summary>
@@ -20,7 +20,7 @@ public class UserContentController : ControllerBase
     private readonly UserManager<IdentityUser> _userManager;
     private readonly UserContentContext _context;
     private readonly ISpendingService _spendingService;
-
+    private readonly IUserContentRepository _userContentRepository;
     /// <summary>
     /// Initializes a new instance of the UserContentController class.
     /// </summary>
@@ -30,11 +30,13 @@ public class UserContentController : ControllerBase
     public UserContentController(
         UserManager<IdentityUser> userManager,
         UserContentContext context,
-        ISpendingService spendingService)
+        ISpendingService spendingService,
+        IUserContentRepository userContentRepository)
     {
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _spendingService = spendingService ?? throw new ArgumentNullException(nameof(spendingService));
+        _userContentRepository = userContentRepository ?? throw new ArgumentNullException(nameof(userContentRepository));
     }
 
     /// <summary>
@@ -61,26 +63,17 @@ public class UserContentController : ControllerBase
 
         try
         {
-            // Parse UTC time from client
-            if (!DateTimeOffset.TryParse(dto.DateIso, out var utc))
-            {
-                return BadRequest(new { message = "Invalid date format." });
-            }
-
             // Convert to user's local timezone
-            // tzOffsetMinutes is negative for UTC+7, so negate it: -(-420) = +420
-            var userLocal = utc.ToOffset(TimeSpan.FromMinutes(-dto.TzOffsetMinutes));
+            var userLocal = LocalTimeConverter.ConvertToLocalTime(dto.DateIso, -dto.TzOffsetMinutes);
 
             // Create model entity to store in database
             var newItem = new UserContentModel
             {
                 UserId = userId,
                 Category = dto.Category,
-                MoneySpent = dto.Amount,
+                MoneySpent = dto.MoneySpent,
                 Note = dto.Note,
                 Date = userLocal,  // Store the user's local time
-                DateIso = dto.DateIso,  // Store UTC for reference
-                TzOffsetMinutes = dto.TzOffsetMinutes  // Store offset for future conversions
             };
 
             await _context.UserContents.AddAsync(newItem);
@@ -94,6 +87,48 @@ public class UserContentController : ControllerBase
             return StatusCode(500, new { message = "An error occurred while adding user content.", error = ex.Message });
         }
     }
+
+    [Authorize]
+    [HttpPut("modifyusercontent")]
+    public async Task<IActionResult> EditUserContent([FromBody] UserContentDto dto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized(new { message = "User not authenticated." });
+        }
+
+        try
+        {
+            await _userContentRepository.ModifyAsync(dto);
+
+            await _userContentRepository.SaveChangesAsync();
+
+            return Ok(new { message = "User content modified successfully!" });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            // Log the exception (assuming logging is configured)
+            return StatusCode(500, new { message = "An error occurred while modifying user content.", error = ex.Message });
+    }
+    }
+
+
+
 
     /// <summary>
     /// Retrieves spending data for the authenticated user based on the specified time hierarchy.
