@@ -46,18 +46,6 @@ public class UserContent
     [Required]
     public DateTimeOffset Date { get; set; }
 
-    /// <summary>
-    /// The date and time in ISO 8601 format (UTC).
-    /// Stored for reference and potential future conversions.
-    /// </summary>
-    [Required]
-    public string DateIso { get; set; } = string.Empty;
-
-    /// <summary>
-    /// The timezone offset in minutes from UTC.
-    /// Used to convert between UTC and user's local time.
-    /// </summary>
-    public int TzOffsetMinutes { get; set; }
 }
 
 /// <summary>
@@ -66,6 +54,12 @@ public class UserContent
 /// </summary>
 public class UserContentDto
 {
+    /// <summary>
+    /// The ID of the spending item
+    /// This is optional for creation but can be used for updates.
+    /// </summary>
+    public int? Id { get; set; }
+
     /// <summary>
     /// The category of the spending.
     /// </summary>
@@ -78,7 +72,7 @@ public class UserContentDto
     /// </summary>
     [Required(ErrorMessage = "Amount is required.")]
     [Range(0.01, int.MaxValue, ErrorMessage = "Amount must be greater than 0.")]
-    public int Amount { get; set; }
+    public int MoneySpent { get; set; }
 
     /// <summary>
     /// Optional note for the spending.
@@ -98,3 +92,4 @@ public class UserContentDto
     [Required(ErrorMessage = "Timezone offset is required.")]
     public int TzOffsetMinutes { get; set; }
 }
+
