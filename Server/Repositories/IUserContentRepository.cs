@@ -29,7 +29,7 @@ public interface IUserContentRepository
     /// </summary>
     /// <param name="userContentDto">The user content entity with updated values.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task ModifyAsync(UserContentModel userContentDto);
+    Task ModifyAsync(UserContentDto userContentDto);
 
 
 
