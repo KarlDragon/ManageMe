@@ -64,6 +64,39 @@ public class UserContentRepository : IUserContentRepository
     }
 
     /// <summary>
+    /// Modifies an existing user content item in the database.
+    /// The item is identified by its ID, and the provided DTO contains the updated values.
+    /// </summary>
+    /// <param name="userContentDto">The user content entity with updated values.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public async Task ModifyAsync(UserContentDto userContentDto)
+    {
+        // Find the existing item by ID 
+        var existingItem = await _context.UserContents.FindAsync(userContentDto.Id);
+
+        if (existingItem == null)
+        {
+            throw new KeyNotFoundException($"User content with ID {userContentDto.Id} not found.");
+        }
+        var date = LocalTimeConverter.ConvertToLocalTime(userContentDto.DateIso, -userContentDto.TzOffsetMinutes);
+        // Update properties
+        existingItem.Category = userContentDto.Category;
+        existingItem.MoneySpent = userContentDto.MoneySpent;
+        existingItem.Note = userContentDto.Note;
+        existingItem.Date = date;
+
+        _context.UserContents.Update(existingItem);
+
+        await Task.CompletedTask;
+    }
+
+    public Task ModifyAsync(UserContentModel userContentDto)
+    {
+        throw new NotImplementedException();
+    }
+
+
+    /// <summary>
     /// Saves all changes made in the context to the database.
     /// </summary>
     /// <returns>A task representing the asynchronous save operation.</returns>
