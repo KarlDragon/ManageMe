@@ -25,6 +25,15 @@ public interface IUserContentRepository
     Task<List<UserContentModel>> GetByUserAndHierarchyAsync(string userId, string hierarchy);
 
     /// <summary>
+    /// Modifies an existing user content item in the database.
+    /// </summary>
+    /// <param name="userContentDto">The user content entity with updated values.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task ModifyAsync(UserContentModel userContentDto);
+
+
+
+    /// <summary>
     /// Saves all changes made in the context to the database.
     /// </summary>
     /// <returns>A task representing the asynchronous operation.</returns>
