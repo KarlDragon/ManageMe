@@ -25,18 +25,23 @@ export function UserExpense({
 
   return (
     <section className="userExpense">
-      <header>
-        <h3>{hierarchyState === "daily" ? "Chi tiêu hằng ngày" : hierarchyState === "monthly" ? "Chi tiêu hằng tháng" : "Chi tiêu hằng năm"}</h3>
-        <div>Tổng chi tiêu: {data.total}</div>
-      </header>
-
-      <ul>
-        {data.byCategory.map((item) => (
-          <li key={item.category}>
-            {item.category}: {item.amount}
-          </li>
-        ))}
-      </ul>
+      {hierarchyState === "daily" && (
+        <div className="dailyExpense">
+          <h3>Chi tiêu hằng ngày</h3>
+          <p>Tổng chi tiêu: {data.total}</p>
+        </div>
+      ) || hierarchyState === "monthly" ? (
+        <div className="monthlyExpense">
+          <h3>Chi tiêu hằng tháng</h3>
+          <p>Tổng chi tiêu: {data.total}</p>
+        </div>
+      ) : (
+        <div className="yearlyExpense">
+          <h3>Chi tiêu hằng năm</h3>
+          <p>Tổng chi tiêu: {data.total}</p>
+        </div>
+      )
+      }
     </section>
   );
 }
