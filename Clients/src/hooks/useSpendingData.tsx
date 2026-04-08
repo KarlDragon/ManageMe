@@ -13,6 +13,7 @@ export function useSpendingData(hierarchy: "daily" | "monthly" | "yearly") {
       setError(null);
       const result = await getSpendingData(hierarchy);
       setData(result);
+      console.log("Fetched spending data:", result);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
