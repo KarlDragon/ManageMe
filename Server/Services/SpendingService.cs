@@ -1,8 +1,4 @@
-using Microsoft.Extensions.Logging;
-using Server.DTO;
 using Server.Repositories;
-using UserContent.Models;
-using UserContentModel = UserContent.Models.UserContent;
 
 namespace Server.Services;
 
