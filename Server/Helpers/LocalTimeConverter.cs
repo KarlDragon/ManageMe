@@ -12,6 +12,7 @@ public class LocalTimeConverter
         {
             throw new ArgumentException("Invalid date format. Expected ISO 8601 string.", nameof(utcDate));
         }
-        return utc.ToOffset(TimeSpan.FromMinutes(tzOffsetMinutes));
+        var localDateTime = utc.AddHours(tzOffsetMinutes);
+        return new DateTimeOffset(localDateTime.DateTime, TimeSpan.FromMinutes(tzOffsetMinutes));
     }
 }
