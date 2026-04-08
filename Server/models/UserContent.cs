@@ -30,9 +30,9 @@ public class UserContent
     /// <summary>
     /// The amount of money spent.
     /// </summary>
-    [Required]
-    [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than 0.")]
-    public decimal MoneySpent { get; set; }
+    // [Required]
+    // [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than 0.")]
+    public int MoneySpent { get; set; }
 
     /// <summary>
     /// Optional note or description for the spending.
@@ -70,9 +70,9 @@ public class UserContentDto
     /// <summary>
     /// The Money spent.
     /// </summary>
-    [Required(ErrorMessage = "MoneySpent is required.")]
-    [Range(0.01, double.MaxValue, ErrorMessage = "MoneySpent must be greater than 0.")]
-    public decimal MoneySpent { get; set; }
+    // [Required(ErrorMessage = "MoneySpent is required.")]
+    // [Range(0.01, double.MaxValue, ErrorMessage = "MoneySpent must be greater than 0.")]
+    public int MoneySpent { get; set; }
 
     /// <summary>
     /// Optional note for the spending.

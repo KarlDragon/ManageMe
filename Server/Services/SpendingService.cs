@@ -42,7 +42,7 @@ public class SpendingService : ISpendingService
         {
             var items = await _userContentRepository.GetByUserAndHierarchyAsync(userId, hierarchy);
 
-            var total = items.Sum(x => (decimal)x.MoneySpent);
+            var total = items.Sum(x => (int)x.MoneySpent);
 
             // Group by category for byCategory
             var byCategory = items
