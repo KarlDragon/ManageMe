@@ -63,8 +63,10 @@ public class UserContentController : ControllerBase
 
         try
         {
-            // Convert to user's local timezone
-            var userLocal = LocalTimeConverter.ConvertToLocalTime(dto.DateIso, -dto.TzOffsetMinutes);
+            if (!DateTimeOffset.TryParse(dto.DateIso, out var utcDate))
+            {
+                return BadRequest(new { message = "Invalid date format." });
+            }
 
             // Create model entity to store in database
             var newItem = new UserContentModel
@@ -73,7 +75,7 @@ public class UserContentController : ControllerBase
                 Category = dto.Category,
                 MoneySpent = dto.MoneySpent,
                 Note = dto.Note,
-                Date = userLocal,  // Store the user's local time
+                Date = utcDate,
             };
 
             await _context.UserContents.AddAsync(newItem);

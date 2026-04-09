@@ -86,10 +86,5 @@ public class UserContentDto
     [Required(ErrorMessage = "Date is required.")]
     public string DateIso { get; set; } = string.Empty;
 
-    /// <summary>
-    /// The timezone offset in minutes.
-    /// </summary>
-    [Required(ErrorMessage = "Timezone offset is required.")]
-    public int TzOffsetMinutes { get; set; }
 }
 

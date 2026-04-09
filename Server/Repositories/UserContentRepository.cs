@@ -44,7 +44,8 @@ public class UserContentRepository : IUserContentRepository
         var query = _context.UserContents.Where(x => x.UserId == userId);
 
         var today = DateTime.UtcNow;
-
+        
+        Console.WriteLine($"Current UTC time: {today:yyyy-MM-dd HH:mm:ss}");
         switch (hierarchy.ToLower())
         {
             case "daily":
@@ -78,12 +79,13 @@ public class UserContentRepository : IUserContentRepository
         {
             throw new KeyNotFoundException($"User content with ID {userContentDto.Id} not found.");
         }
-        var date = LocalTimeConverter.ConvertToLocalTime(userContentDto.DateIso, -userContentDto.TzOffsetMinutes);
+        
+        DateTimeOffset.TryParse(userContentDto.DateIso, out var utcDate);
         // Update properties
         existingItem.Category = userContentDto.Category;
         existingItem.MoneySpent = userContentDto.MoneySpent;
         existingItem.Note = userContentDto.Note;
-        existingItem.Date = date;
+        existingItem.Date = utcDate;
 
         _context.UserContents.Update(existingItem);
 
