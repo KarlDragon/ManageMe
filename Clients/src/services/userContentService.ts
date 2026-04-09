@@ -7,7 +7,7 @@ export function getSpendingData(hierarchy: "daily" | "monthly" | "yearly") {
 }
 
 export function addUserContent(content: UserContent) {
-  // The server expects a slightly different shape (PascalCase + DateIso + TzOffsetMinutes)
+
   const { category, amount, note } = content;
   const now = new Date();
 
@@ -18,7 +18,6 @@ export function addUserContent(content: UserContent) {
       Amount: Math.round(amount),
       Note: note,
       DateIso: now.toISOString(),
-      TzOffsetMinutes: now.getTimezoneOffset(),
     },
   });
 }
