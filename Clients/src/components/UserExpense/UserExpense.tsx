@@ -1,4 +1,5 @@
 import type { SpendingData } from "../../models/SpedingData";
+import "./UserExpense.css";
 
 export function UserExpense({
   hierarchyState,
@@ -25,12 +26,26 @@ export function UserExpense({
 
   return (
     <section className="userExpense">
-      {hierarchyState === "daily" && (
+      {hierarchyState === "daily" ? (
         <div className="dailyExpense">
-          <h3>Chi tiêu hằng ngày</h3>
-          <p>Tổng chi tiêu: {data.total}</p>
+          <div className="totalExpense">
+            <h3>Chi tiêu hằng ngày</h3>
+            <p>Tổng chi tiêu: {data.total}</p>
+          </div>
+
+          <div className="expenseItems">
+            <h4>Chi tiết chi tiêu:</h4>
+            {data.byItems.map((item, index) => (
+              <div key={index} className="expenseItem">
+                <p>Danh mục: {item.category}</p>
+                <p>Số tiền: {item.moneySpent}</p>
+                <p>Ghi chú: {item.note}</p>
+                <p>Ngày: {new Date(item.date).toLocaleDateString()}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      ) || hierarchyState === "monthly" ? (
+      ) : hierarchyState === "monthly" ? (
         <div className="monthlyExpense">
           <h3>Chi tiêu hằng tháng</h3>
           <p>Tổng chi tiêu: {data.total}</p>
@@ -40,8 +55,7 @@ export function UserExpense({
           <h3>Chi tiêu hằng năm</h3>
           <p>Tổng chi tiêu: {data.total}</p>
         </div>
-      )
-      }
+      )}
     </section>
   );
 }
