@@ -123,4 +123,9 @@ public class UserContentRepository : IUserContentRepository
     {
         await _context.SaveChangesAsync();
     }
+
+    Task<object> IUserContentRepository.DeleteAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
 }
