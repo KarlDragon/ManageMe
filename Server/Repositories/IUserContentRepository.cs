@@ -31,7 +31,13 @@ public interface IUserContentRepository
     /// <returns>A task representing the asynchronous operation.</returns>
     Task ModifyAsync(UserContentDto userContentDto);
 
-
+    /// <summary>
+    /// Deletes a user content item from the database based on its ID.
+    /// </summary>
+    /// <param name="id">The ID of the user content item to delete.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    
+    Task<object> DeleteAsync(int id);
 
     /// <summary>
     /// Saves all changes made in the context to the database.

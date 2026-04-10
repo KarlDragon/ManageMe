@@ -129,8 +129,35 @@ public class UserContentController : ControllerBase
     }
     }
 
+    [Authorize]
+    [HttpDelete("deleteusercontent/{id}")]
+    public async Task<IActionResult> DeleteUserContent(int id)
+    {
+        var userID = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
+        if (string.IsNullOrEmpty(userID))
+        {
+            return Unauthorized(new { message = "User not authenticated." });
+        }
 
+        try
+        {
+            await _userContentRepository.DeleteAsync(id);
+
+            await _userContentRepository.SaveChangesAsync();
+
+            return Ok(new { message = "User content deleted successfully!" });
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            // Log the exception (assuming logging is configured)
+            return StatusCode(500, new { message = "An error occurred while deleting user content.", error = ex.Message });
+        }
+    }
 
     /// <summary>
     /// Retrieves spending data for the authenticated user based on the specified time hierarchy.

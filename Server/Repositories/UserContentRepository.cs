@@ -97,6 +97,23 @@ public class UserContentRepository : IUserContentRepository
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Deletes a user content item from the database based on its ID.
+    /// </summary>
+    public async Task DeleteAsync(int id)
+    {
+        var existingItem = _context.UserContents.Find(id);
+
+        if (existingItem == null)
+        {
+            throw new KeyNotFoundException($"User content with ID {id} not found.");
+        }
+
+        _context.UserContents.Remove(existingItem);
+
+        await Task.CompletedTask;
+
+    }
 
     /// <summary>
     /// Saves all changes made in the context to the database.
