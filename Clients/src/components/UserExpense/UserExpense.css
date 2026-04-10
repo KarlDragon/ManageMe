@@ -1,75 +1,85 @@
-.userExpense {
-  padding: 16px;
-  color: #fff;
-}
-
-/* ===== Daily Container ===== */
-.dailyExpense {
-  background: #0f2a36;
-  border-radius: 12px;
-  padding: 16px;
-}
-
-/* ===== Header dạng tab ngang ===== */
-.totalExpense {
+/* Container chính cho từng item */
+.expenseItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid rgba(255,255,255,0.1);
-  padding-bottom: 10px;
-  margin-bottom: 16px;
-}
-
-.totalExpense h3 {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.totalExpense p {
-  font-size: 16px;
-  font-weight: 500;
-  color: #00d4ff;
-}
-
-/* ===== Container list ===== */
-.expenseItems {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* ===== Mỗi item dạng ngang ===== */
-.expenseItem {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 2fr 1.2fr;
-  align-items: center;
   background: #123544;
-  padding: 12px 16px;
-  border-radius: 10px;
-  transition: 0.2s;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
 }
 
 .expenseItem:hover {
   background: #17485c;
+  border-left: 4px solid #00d4ff;
+  transform: translateX(4px);
 }
 
-/* ===== Text style ===== */
-.expenseItem p {
+/* Phần thông tin bên trái - dùng Grid để căn chỉnh nội dung */
+.itemInfo {
+  display: grid;
+  grid-template-columns: 180px 150px 1fr 150px; /* Cố định độ rộng để thẳng hàng */
+  gap: 15px;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.itemInfo p {
   margin: 0;
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Optional: label style */
-.expenseItem p:nth-child(1) {
+.money {
+  color: #00d4ff;
   font-weight: 600;
 }
 
-.expenseItem p:nth-child(2) {
-  color: #00d4ff;
+.time {
+  text-align: right;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Phần nút bấm bên phải */
+.expenseActions {
+  display: flex;
+  gap: 8px;
+  margin-left: 20px;
+}
+
+.expenseActions button {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
   font-weight: 500;
 }
 
-.expenseItem p:nth-child(4) {
-  text-align: right;
-  opacity: 0.8;
+.modifyContentbtn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.modifyContentbtn:hover {
+  background: #00d4ff;
+  color: #000;
+}
+
+.removeContentbtn {
+  background: rgba(255, 68, 68, 0.2);
+  color: #ff4444;
+  border: 1px solid rgba(255, 68, 68, 0.3) !important;
+}
+
+.removeContentbtn:hover {
+  background: #ff4444;
+  color: #fff;
 }

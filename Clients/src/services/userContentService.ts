@@ -15,7 +15,7 @@ export function addUserContent(content: UserContent) {
     method: "POST",
     body: {
       Category: category,
-      MoneySpent: Math.round(amount),
+      Amount: Math.round(amount),
       Note: note,
       DateIso: now.toISOString(),
     },

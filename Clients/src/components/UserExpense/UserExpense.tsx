@@ -23,7 +23,8 @@ export function UserExpense({
   if (!data) {
     return <div>No spending data available.</div>;
   }
-
+  const now = new Date();
+  const offsetInMinutes = now.getTimezoneOffset();
   return (
     <section className="userExpense">
       {hierarchyState === "daily" ? (
@@ -37,10 +38,16 @@ export function UserExpense({
             <h4>Chi tiết chi tiêu:</h4>
             {data.byItems.map((item, index) => (
               <div key={index} className="expenseItem">
-                <p>Danh mục: {item.category}</p>
-                <p>Số tiền: {item.moneySpent}</p>
-                <p>Ghi chú: {item.note}</p>
-                <p>Ngày: {new Date(item.date).toLocaleDateString()}</p>
+                <div className="itemInfo">
+                  <p><strong>Danh mục:</strong> {item.category}</p>
+                  <p className="money"><strong>Số tiền:</strong> {item.moneySpent}</p>
+                  <p><strong>Ghi chú:</strong> {item.note}</p>
+                  <p className="time">Lúc: {new Date(new Date(item.date).getTime() - (offsetInMinutes * 60000)).toLocaleTimeString()}</p>
+                </div>
+                <div className="expenseActions">
+                  <button className="modifyContentbtn">Sửa</button>
+                  <button className="removeContentbtn">Xóa</button>
+                </div>
               </div>
             ))}
           </div>
