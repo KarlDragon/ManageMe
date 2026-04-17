@@ -40,7 +40,7 @@ function Homepage() {
     setFormError(null);
 
     try {
-      await addUserContent({ category: currentCategory, amount: moneyAmount, note });
+      await addUserContent({ category: currentCategory, MoneySpent: moneyAmount, note });
       setMoneyAmount(0);
       setNote("");
       refetch();
