@@ -1,5 +1,5 @@
 export interface UserContent{
     category: "Breakfast" | "Lunch" | "Dinner" | "Transport" | "Entertainment" | "Shopping";
-    amount: number;
+    MoneySpent: number;
     note: string;
 }

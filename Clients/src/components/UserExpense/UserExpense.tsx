@@ -1,5 +1,8 @@
 import type { SpendingData } from "../../models/SpedingData";
+import { ModifyContent } from "../ModifyContent/ModifyContent";
+import type { Category } from "../../models/Categories";
 import "./UserExpense.css";
+import { useState } from "react";
 
 export function UserExpense({
   hierarchyState,
@@ -25,6 +28,8 @@ export function UserExpense({
   }
   const now = new Date();
   const offsetInMinutes = now.getTimezoneOffset();
+
+  const [editingItem, setEditingItem] = useState<{ id: number; category: Category; moneySpent: number; note: string; date: string } | null>(null);
   return (
     <section className="userExpense">
       {hierarchyState === "daily" ? (
@@ -45,7 +50,9 @@ export function UserExpense({
                   <p className="time">Lúc: {new Date(new Date(item.date).getTime() - (offsetInMinutes * 60000)).toLocaleTimeString()}</p>
                 </div>
                 <div className="expenseActions">
-                  <button className="modifyContentbtn">Sửa</button>
+                  <button className="modifyContentbtn" onClick={() => setEditingItem({ id: item.id, category: item.category as Category, moneySpent: item.moneySpent, note: item.note, date: item.date })}>
+                    Sửa
+                  </button>
                   <button className="removeContentbtn">Xóa</button>
                 </div>
               </div>
@@ -62,6 +69,16 @@ export function UserExpense({
           <h3>Chi tiêu hằng năm</h3>
           <p>Tổng chi tiêu: {data.total}</p>
         </div>
+      )}
+
+      {editingItem && (
+        <ModifyContent 
+          id={editingItem.id}
+          category={editingItem.category} 
+          moneySpent={editingItem.moneySpent} 
+          note={editingItem.note} 
+          onClose={() => setEditingItem(null)} 
+        />
       )}
     </section>
   );
