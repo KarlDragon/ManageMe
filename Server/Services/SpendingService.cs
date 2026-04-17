@@ -54,6 +54,7 @@ public class SpendingService : ISpendingService
             var byItems = items
                 .Select(x => new
                 {
+                    id = x.Id,
                     category = x.Category,
                     moneySpent = x.MoneySpent,
                     note = x.Note,
