@@ -107,12 +107,12 @@ function Homepage() {
                 </form>
 
                 <div className="expense">
-                  <UserExpense hierarchyState={hierarchyState} data={data} loading={loading} error={error} />
+                  <UserExpense hierarchyState={hierarchyState} data={data} loading={loading} error={error} onSave={refetch} />
                 </div>
               </div>
             ) : (
               <div className="expense">
-                <UserExpense hierarchyState={hierarchyState} data={data} loading={loading} error={error} />
+                <UserExpense hierarchyState={hierarchyState} data={data} loading={loading} error={error} onSave={refetch} />
               </div>
             )}
           </div>

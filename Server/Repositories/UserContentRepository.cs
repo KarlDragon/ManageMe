@@ -115,6 +115,11 @@ public class UserContentRepository : IUserContentRepository
 
     }
 
+    public Task DeleteAsync(UserContentModel userContentDto)
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Saves all changes made in the context to the database.
     /// </summary>
@@ -124,8 +129,4 @@ public class UserContentRepository : IUserContentRepository
         await _context.SaveChangesAsync();
     }
 
-    Task<object> IUserContentRepository.DeleteAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
 }

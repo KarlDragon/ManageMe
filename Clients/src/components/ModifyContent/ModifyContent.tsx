@@ -10,9 +10,10 @@ export interface ModifyContentProps {
   moneySpent: number;
   note: string;
   onClose: () => void;
+  onSave?: () => void;
 }
 
-export function ModifyContent({ id, category, moneySpent, note, onClose }: ModifyContentProps) {
+export function ModifyContent({ id, category, moneySpent, note, onClose, onSave }: ModifyContentProps) {
     const [selectedCategory, setSelectedCategory] = useState<Category>(category);
     const [moneyAmount, setMoneyAmount] = useState(moneySpent);
     const [noteText, setNoteText] = useState(note);
@@ -37,6 +38,7 @@ export function ModifyContent({ id, category, moneySpent, note, onClose }: Modif
                             MoneySpent: moneyAmount,
                             note: noteText
                         });
+                        onSave?.();
                         onClose();
                     }}>Lưu</button>
                 </div>

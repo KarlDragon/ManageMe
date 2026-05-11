@@ -1,5 +1,6 @@
 import type { SpendingData } from "../../models/SpedingData";
 import { ModifyContent } from "../ModifyContent/ModifyContent";
+import { RemoveContent } from "../RemoveContent/RemoveContent";
 import type { Category } from "../../models/Categories";
 import "./UserExpense.css";
 import { useState } from "react";
@@ -9,11 +10,13 @@ export function UserExpense({
   data,
   loading,
   error,
+  onSave,
 }: {
   hierarchyState: "daily" | "monthly" | "yearly";
   data: SpendingData | null;
   loading: boolean;
   error?: string | null;
+  onSave?: () => void;
 }) {
   if (loading) {
     return <div>Loading...</div>;
@@ -30,6 +33,7 @@ export function UserExpense({
   const offsetInMinutes = now.getTimezoneOffset();
 
   const [editingItem, setEditingItem] = useState<{ id: number; category: Category; moneySpent: number; note: string; date: string } | null>(null);
+  const [removingItem, setRemovingItem] = useState<number | null>(null);
   return (
     <section className="userExpense">
       {hierarchyState === "daily" ? (
@@ -53,7 +57,9 @@ export function UserExpense({
                   <button className="modifyContentbtn" onClick={() => setEditingItem({ id: item.id, category: item.category as Category, moneySpent: item.moneySpent, note: item.note, date: item.date })}>
                     Sửa
                   </button>
-                  <button className="removeContentbtn">Xóa</button>
+                  <button className="removeContentbtn" onClick={() => setRemovingItem(item.id)}>
+                    Xóa
+                  </button>
                 </div>
               </div>
             ))}
@@ -77,7 +83,16 @@ export function UserExpense({
           category={editingItem.category} 
           moneySpent={editingItem.moneySpent} 
           note={editingItem.note} 
-          onClose={() => setEditingItem(null)} 
+          onClose={() => setEditingItem(null)}
+          onSave={onSave}
+        />
+      )}
+
+      {removingItem && (
+        <RemoveContent 
+          id={removingItem}
+          onClose={() => setRemovingItem(null)}
+          onRemove={onSave}
         />
       )}
     </section>

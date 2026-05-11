@@ -37,3 +37,9 @@ export function modifyUserContent(content: ModifiedContent) {
     },
   });
 }
+
+export function deleteusercontent(id: number) {
+  return apiFetch<void>(`/UserContent/deleteusercontent/${id}`, {
+    method: "DELETE",
+  });
+}
